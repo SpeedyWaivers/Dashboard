@@ -1,7 +1,9 @@
-import { SET_CUSTOMER_LIST } from "../actions/WaiverActions";
+import { SET_CUSTOMER_LIST, SET_WAIVER } from "../actions/WaiverActions";
 
 const initialState = {
   customerList: [],
+  waivers: [],
+  selectedWaiver: {},
 };
 
 const waiverReducer = function (state = initialState, action) {
@@ -10,6 +12,12 @@ const waiverReducer = function (state = initialState, action) {
       return {
         ...state,
         customerList: [...action.data],
+      };
+    }
+    case SET_WAIVER: {
+      return {
+        ...state,
+        ...action.data,
       };
     }
     default: {

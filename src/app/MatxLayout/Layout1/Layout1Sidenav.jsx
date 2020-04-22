@@ -91,7 +91,7 @@ const Layout1Sidenav = () => {
             backgroundImage: `url(${settings.layout1Settings.leftSidebar.bgImgURL})`,
           }}
         >
-          {!Object.keys(user).length && (
+          {Object.keys(user).length && (
             <Fragment>
               {renderLogoSwitch(settings, handleSidenavToggle)}
               <Sidenav>{renderUser(user, handleSignOut)}</Sidenav>

@@ -6,21 +6,21 @@ import MatxVerticalNavExpansionPanel from "./MatxVerticalNavExpansionPanel";
 import { withStyles } from "@material-ui/styles";
 import { useSelector } from "react-redux";
 
-const styles = theme => ({
+const styles = (theme) => ({
   expandIcon: {
     transition: "transform 225ms cubic-bezier(0, 0, 0.2, 1) 0ms",
-    transform: "rotate(90deg)"
+    transform: "rotate(90deg)",
   },
   collapseIcon: {
     transition: "transform 225ms cubic-bezier(0, 0, 0.2, 1) 0ms",
-    transform: "rotate(0deg)"
-  }
+    transform: "rotate(0deg)",
+  },
 });
 
-const MatxVerticalNav = props => {
-  const navigations = useSelector(({ navigations }) => navigations);
+const MatxVerticalNav = (props) => {
+  const { navigations } = useSelector((state) => state.navigations);
 
-  const renderLevels = data => {
+  const renderLevels = (data) => {
     return data.map((item, index) => {
       if (item.children) {
         return (

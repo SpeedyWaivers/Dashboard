@@ -91,7 +91,11 @@ class Layout1Topbar extends Component {
             <div className="flex items-center">
               <MatxSearchBox />
 
-              <MatxMenu menuButton={<Avatar src={user.imgUrl} />}>
+              <MatxMenu
+                menuButton={
+                  <Avatar className="cursor-pointer" src={user.imgUrl} />
+                }
+              >
                 <MenuItem>
                   <Link className={classes.menuItem} to="/">
                     <Icon> home </Icon>

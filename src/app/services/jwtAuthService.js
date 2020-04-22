@@ -4,8 +4,6 @@ import { API_ROOT } from "app/redux/constants";
 
 class JwtAuthService {
   loginWithUsernameAndPassword = (username, password) => {
-    console.log(username, password);
-
     return axios
       .post(`${API_ROOT}/authenticate`, {
         username,

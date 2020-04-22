@@ -3,6 +3,7 @@ import "../styles/_app.scss";
 import React from "react";
 import { Provider } from "react-redux";
 import { Router } from "react-router-dom";
+import { SnackbarProvider } from "notistack";
 import MatxTheme from "./MatxLayout/MatxTheme/MatxTheme";
 import AppContext from "./appContext";
 import history from "history.js";
@@ -17,11 +18,13 @@ const App = () => {
     <AppContext.Provider value={{ routes }}>
       <Provider store={Store}>
         <MatxTheme>
-          <Router history={history}>
-            <Auth>
-              <MatxLayout />
-            </Auth>
-          </Router>
+          <SnackbarProvider>
+            <Router history={history}>
+              <Auth>
+                <MatxLayout />
+              </Auth>
+            </Router>
+          </SnackbarProvider>
         </MatxTheme>
       </Provider>
     </AppContext.Provider>

@@ -1,26 +1,17 @@
-import {
-  SET_USER_DATA,
-  REMOVE_USER_DATA,
-  USER_LOGGED_OUT,
-} from "../actions/UserActions";
+import { SET_REGISTRATION_FIELDS } from "../actions/RegistrationActions";
 
-const initialState = {};
+const initialState = {
+  registrationFields: [],
+  settings: [],
+};
 
 const registrationReducer = function (state = initialState, action) {
   switch (action.type) {
-    case SET_USER_DATA: {
+    case SET_REGISTRATION_FIELDS: {
       return {
         ...state,
         ...action.data,
       };
-    }
-    case REMOVE_USER_DATA: {
-      return {
-        ...state,
-      };
-    }
-    case USER_LOGGED_OUT: {
-      return state;
     }
     default: {
       return state;

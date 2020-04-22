@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   TextField,
   Icon,
@@ -10,10 +10,28 @@ import {
   Card,
 } from "@material-ui/core";
 import { Breadcrumb } from "matx";
+import { useSelector, useDispatch } from "react-redux";
+import { useSnackbar } from "notistack";
+import { getRegistrationSettings } from "app/redux/actions/RegistrationActions";
+import SignatureCreator from "app/MatxLayout/SharedCompoents/SignatureCreator";
 
 const Register = () => {
+  const [settingsList, setSettingsList] = useState([]);
   const [activeStep, setActiveStep] = useState(0);
   const steps = ["First Name", "Last Name", "Address"];
+
+  const dispatch = useDispatch();
+  const { venue } = useSelector((state) => state.navigations);
+  const { registrationFields, settings } = useSelector((state) => state.setup);
+  const { enqueueSnackbar: showSnackbar } = useSnackbar();
+
+  useEffect(() => {
+    dispatch(getRegistrationSettings(venue.venueId));
+  }, [dispatch, venue]);
+
+  useEffect(() => {
+    setSettingsList(registrationFields);
+  }, [registrationFields]);
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -45,6 +63,7 @@ const Register = () => {
             {activeStep === steps.length ? (
               <div>
                 <div className="flex items-center mb-4">
+                  <SignatureCreator />
                   <Icon>done</Icon> <span className="ml-2">Done</span>
                 </div>
                 <Button

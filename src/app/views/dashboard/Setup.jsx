@@ -2,6 +2,14 @@ import React from "react";
 import { Button, Checkbox } from "@material-ui/core";
 import { Breadcrumb, SimpleCard } from "matx";
 import { makeStyles } from "@material-ui/core/styles";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import {
+  getRegistrationSettings,
+  setRegistrationFields,
+} from "app/redux/actions/RegistrationActions";
+import { useState } from "react";
+import { useSnackbar } from "notistack";
 
 const useStyles = makeStyles(({ palette, ...theme }) => ({
   table: {
@@ -16,7 +24,35 @@ const useStyles = makeStyles(({ palette, ...theme }) => ({
 }));
 
 const Setup = () => {
+  const [settingsList, setSettingsList] = useState([]);
+
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const { registrationFields } = useSelector((state) => state.setup);
+  const { venue } = useSelector((state) => state.navigations);
+  const { enqueueSnackbar: showSnackbar } = useSnackbar();
+
+  useEffect(() => {
+    dispatch(getRegistrationSettings(venue.venueId));
+  }, [dispatch, venue]);
+
+  useEffect(() => {
+    setSettingsList(registrationFields);
+  }, [registrationFields]);
+
+  const handleChange = (index, fieldName, value) => {
+    let temp = [...settingsList];
+    temp[index][fieldName] = value;
+    setSettingsList(temp);
+  };
+
+  const handleSave = () => {
+    dispatch(setRegistrationFields(venue.venueId, settingsList)).then(() => {
+      showSnackbar("Updated successfully", {
+        variant: "success",
+      });
+    });
+  };
 
   return (
     <div className="m-sm-30">
@@ -34,21 +70,36 @@ const Setup = () => {
               </tr>
             </thead>
             <tbody>
-              {["Address", "City", "State", "Mobile"].map((item, ind) => (
-                <tr key={item}>
-                  <td className="border pl-4">{item}</td>
+              {settingsList.map((item, ind) => (
+                <tr key={ind}>
+                  <td className="border pl-4">{item.displayName}</td>
                   <td className="border text-center">
-                    <Checkbox />
+                    <Checkbox
+                      checked={item.show}
+                      onChange={({ target: { checked } }) =>
+                        handleChange(ind, "show", checked)
+                      }
+                    />
                   </td>
                   <td className="border text-center">
-                    <Checkbox />
+                    <Checkbox
+                      checked={item.required}
+                      onChange={({ target: { checked } }) =>
+                        handleChange(ind, "required", checked)
+                      }
+                    />
                   </td>
                 </tr>
               ))}
             </tbody>
           </table>
-          <div className="flex justify-end mt-4">
-            <Button className="px-6" variant="contained" color="primary">
+          <div className="flex mt-4">
+            <Button
+              className="px-6"
+              variant="contained"
+              color="primary"
+              onClick={handleSave}
+            >
               Save
             </Button>
           </div>

@@ -1,13 +1,7 @@
 import axios from "axios";
-import history from "history.js";
-import jwtAuthService from "../../services/jwtAuthService";
-
-export const SET_USER_DATA = "USER_SET_DATA";
-export const REMOVE_USER_DATA = "USER_REMOVE_DATA";
-export const USER_LOGGED_OUT = "USER_LOGGED_OUT";
 
 export const SET_CUSTOMER_LIST = "SET_CUSTOMER_LIST";
-export const SET_REGISTRATION_SETTINGS = "SET_REGISTRATION_SETTINGS";
+export const SET_WAIVER = "SET_WAIVER";
 
 export function getCustomerList() {
   return (dispatch) => {
@@ -20,13 +14,53 @@ export function getCustomerList() {
   };
 }
 
-export function getRegistrationSettings() {
+export function getWaiver(venueId) {
   return (dispatch) => {
-    axios.get("/RegistrationSettings").then(({ data }) => {
-      dispatch({
-        type: SET_REGISTRATION_SETTINGS,
-        data,
+    if (venueId)
+      axios.get(`/Waivers/${venueId}`).then(({ data }) => {
+        dispatch({
+          type: SET_WAIVER,
+          data,
+        });
       });
-    });
+  };
+}
+
+export function saveSettings(data) {
+  return (dispatch) => {
+    if (data)
+      return axios.post(`/Settings`, data).then(() => {
+        dispatch({
+          type: SET_WAIVER,
+          data: { selectedWaiver: data },
+        });
+      });
+  };
+}
+
+export function saveWaiver(data) {
+  return (dispatch) => {
+    if (data)
+      return axios.post(`/Waivers/Update`, data).then(() => {
+        dispatch({
+          type: SET_WAIVER,
+          data: { selectedWaiver: data },
+        });
+      });
+  };
+}
+
+export function deleteWaiver(waiverId) {
+  return (dispatch) => {
+    if (waiverId)
+      return axios.delete(`/Waivers/${waiverId}`).then(({ data }) => {
+        console.log(data);
+
+        // dispatch({
+        //   type: SET_WAIVER,
+        //   data,
+        // });
+        return data;
+      });
   };
 }

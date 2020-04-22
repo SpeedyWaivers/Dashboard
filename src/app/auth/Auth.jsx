@@ -20,7 +20,13 @@ const checkJwtAuth = async (setUserData, pathname) => {
   return user;
 };
 
-const Auth = ({ children, user, setUserData, getNavigationByUser }) => {
+const Auth = ({
+  children,
+  user,
+  navigations = [],
+  setUserData,
+  getNavigationByUser,
+}) => {
   const { pathname } = useLocation();
 
   useEffect(() => {
@@ -29,8 +35,8 @@ const Auth = ({ children, user, setUserData, getNavigationByUser }) => {
   }, [pathname, setUserData]);
 
   useEffect(() => {
-    getNavigationByUser();
-  }, [user.username]);
+    if (!navigations.length) getNavigationByUser();
+  }, [user]);
 
   return <Fragment>{children}</Fragment>;
 };
@@ -40,6 +46,7 @@ const mapStateToProps = (state) => ({
   getNavigationByUser: PropTypes.func.isRequired,
   login: state.login,
   user: state.user,
+  navigations: state.navigations.navigations,
 });
 
 export default connect(mapStateToProps, { setUserData, getNavigationByUser })(
