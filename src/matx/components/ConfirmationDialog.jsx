@@ -6,7 +6,7 @@ const ConfirmationDialog = ({
   onConfirmDialogClose,
   text,
   title = "confirm",
-  onYesClick
+  onYesClick,
 }) => {
   return (
     <Dialog
@@ -15,19 +15,25 @@ const ConfirmationDialog = ({
       open={open}
       onClose={onConfirmDialogClose}
     >
-      <div className="p-5 pb-2">
+      <div className="p-6 text-center">
         <h4 className="capitalize m-0 mb-2">{title}</h4>
         <p>{text}</p>
-        <div className="flex justify-between pt-2">
-          <Button onClick={onYesClick} variant="contained" color="primary">
-            Yes
-          </Button>
+        <div className="pt-2">
           <Button
             onClick={onConfirmDialogClose}
-            variant="contained"
+            variant="outlined"
             color="secondary"
+            className="px-6 rounded mr-6"
           >
             No
+          </Button>
+          <Button
+            onClick={onYesClick}
+            variant="contained"
+            color="primary"
+            className="px-6 rounded"
+          >
+            Yes
           </Button>
         </div>
       </div>

@@ -20,6 +20,7 @@
     "echarts": "^4.2.1",
     "echarts-for-react": "^2.0.15-beta.0",
     "firebase": "^6.6.1",
+    "formik": "^2.1.4",
     "globalize": "^0.1.1",
     "history": "^4.10.0",
     "lodash": "^4.17.15",
@@ -51,7 +52,8 @@
     "redux-thunk": "^2.3.0",
     "shortid": "^2.2.14",
     "swiper": "^4.5.0",
-    "victory": "^32.3.3"
+    "victory": "^32.3.3",
+    "yup": "^0.28.4"
   },
   "scripts": {
     "start": "react-app-rewired start",

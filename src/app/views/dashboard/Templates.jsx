@@ -1,16 +1,21 @@
 import React, { useState, useEffect } from "react";
-import { Breadcrumb, RichTextEditor } from "matx";
-import { Card, TextField, MenuItem, Button } from "@material-ui/core";
+import { Breadcrumb, RichTextEditor, ConfirmationDialog } from "matx";
+import { Card, TextField, MenuItem, Button, Dialog } from "@material-ui/core";
 import { useSelector, useDispatch } from "react-redux";
 import {
   getWaiver,
   saveSettings,
   saveWaiver,
   deleteWaiver,
+  addCustomer,
 } from "app/redux/actions/WaiverActions";
 import { useSnackbar } from "notistack";
 
 const Templates = () => {
+  const [open, setOpen] = useState(false);
+  const [waiverDialogOpen, setWaiverDialogOpen] = useState(false);
+  const [dialogWaiverName, setDialogWaiverName] = useState("");
+  const [contentText, setContentText] = useState("");
   const [liveOption, setLiveOption] = useState("");
   const [waiver, setWaiver] = useState({});
 
@@ -25,48 +30,65 @@ const Templates = () => {
 
   useEffect(() => {
     setLiveOption(selectedWaiver.waiverId);
-    setWaiver(selectedWaiver);
+    setWaiver({ ...selectedWaiver });
   }, [selectedWaiver]);
 
+  useEffect(() => {
+    setContentText(waiver.waiverText);
+  }, [waiver]);
+
   const handleContentChange = (contentHtml) => {
-    console.log(waiver);
-    setWaiver({
-      ...waiver,
-      waiverText: contentHtml,
-    });
+    setContentText(contentHtml);
   };
 
   const handleLiveTemplateSave = () => {
     let selectedTemplate = waivers.find((item) => item.waiverId === liveOption);
+
     if (selectedTemplate)
       dispatch(
         saveSettings({
-          venueId: 1,
-          settingValue: "14",
+          venueId: selectedTemplate.venueId,
+          settingValue: selectedTemplate.waiverId,
           settingName: "DefaultWaiverId",
-          // venueId: selectedTemplate.venueId,
-          // settingValue: selectedTemplate.waiverId.toString(),
-          // settingName: selectedTemplate.name,
         })
       ).then(() => {
         showSnackbar("Saved successfully", {
           variant: "success",
         });
+        dispatch(getWaiver(venue.venueId));
       });
   };
 
   const handleWaiverSave = () => {
     if (waiver.waiverId)
-      dispatch(saveWaiver(waiver)).then(() => {
+      dispatch(saveWaiver({ ...waiver, waiverText: contentText })).then(() => {
         showSnackbar("Saved successfully", {
           variant: "success",
         });
       });
   };
 
+  const handleWaiverCreate = () => {
+    if (dialogWaiverName) {
+      dispatch(
+        addCustomer({
+          venueId: venue.venueId,
+          name: dialogWaiverName,
+          waiverText: "",
+        })
+      ).then(() => {
+        setWaiverDialogOpen(false);
+        showSnackbar("Saved successfully", {
+          variant: "success",
+        });
+      });
+    }
+  };
+
   const handleWaiverDelete = () => {
     if (waiver.waiverId)
       dispatch(deleteWaiver(waiver.waiverId)).then(() => {
+        setOpen(false);
         showSnackbar("Deleted successfully", {
           variant: "success",
         });
@@ -105,26 +127,37 @@ const Templates = () => {
       </Card>
 
       <Card className="p-6">
-        <TextField
-          className="mb-6 min-w-200"
-          name="SelectedWaiver"
-          variant="outlined"
-          size="small"
-          select
-          value={waiver.waiverId || ""}
-          onChange={({ target: { value } }) =>
-            setWaiver(waivers.find((item) => item.waiverId === value))
-          }
-        >
-          {waivers.map((item, ind) => (
-            <MenuItem key={item.waiverId} value={item.waiverId}>
-              {item.name}
-            </MenuItem>
-          ))}
-        </TextField>
+        <div className="flex items-center justify-between mb-6">
+          <TextField
+            className="min-w-200"
+            name="SelectedWaiver"
+            variant="outlined"
+            size="small"
+            select
+            value={waiver.waiverId || ""}
+            onChange={({ target: { value } }) =>
+              setWaiver({ ...waivers.find((item) => item.waiverId === value) })
+            }
+          >
+            {waivers.map((item, ind) => (
+              <MenuItem key={item.waiverId} value={item.waiverId}>
+                {item.name}
+              </MenuItem>
+            ))}
+          </TextField>
+          <Button
+            onClick={() => setWaiverDialogOpen(true)}
+            variant="contained"
+            color="primary"
+            className="px-6"
+          >
+            Create
+          </Button>
+        </div>
+
         <div className="mb-6">
           <RichTextEditor
-            content={waiver.waiverText || ""}
+            content={contentText || ""}
             handleContentChange={handleContentChange}
             placeholder="insert text here..."
           />
@@ -133,7 +166,7 @@ const Templates = () => {
           variant="contained"
           color="secondary"
           className="mr-4"
-          onClick={handleWaiverDelete}
+          onClick={() => setOpen(true)}
         >
           Delete
         </Button>
@@ -141,6 +174,46 @@ const Templates = () => {
           Save
         </Button>
       </Card>
+
+      <ConfirmationDialog
+        open={open}
+        onYesClick={handleWaiverDelete}
+        onConfirmDialogClose={() => setOpen(false)}
+        title="Confirm"
+        text="Are you sure to delete ?"
+      />
+
+      <Dialog
+        open={waiverDialogOpen}
+        onClose={() => setWaiverDialogOpen(false)}
+      >
+        <div className="p-6">
+          <TextField
+            className="mb-4"
+            variant="outlined"
+            size="small"
+            label="Waiver Name"
+            fullWidth
+            onChange={({ target: { value } }) => setDialogWaiverName(value)}
+          />
+          <Button
+            onClick={() => setWaiverDialogOpen(false)}
+            variant="outlined"
+            color="secondary"
+            className="px-6 mr-6"
+          >
+            Cancel
+          </Button>
+          <Button
+            onClick={handleWaiverCreate}
+            variant="contained"
+            color="primary"
+            className="px-6"
+          >
+            Create
+          </Button>
+        </div>
+      </Dialog>
     </div>
   );
 };

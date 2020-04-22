@@ -26,15 +26,18 @@ export function getWaiver(venueId) {
   };
 }
 
-export function saveSettings(data) {
+export function addCustomer(data) {
   return (dispatch) => {
     if (data)
-      return axios.post(`/Settings`, data).then(() => {
-        dispatch({
-          type: SET_WAIVER,
-          data: { selectedWaiver: data },
-        });
+      return axios.post(`/Customers`, data).then(({ data }) => {
+        return data;
       });
+  };
+}
+
+export function saveSettings(data) {
+  return (dispatch) => {
+    if (data) return axios.post(`/Settings`, data).then(() => {});
   };
 }
 
@@ -51,16 +54,19 @@ export function saveWaiver(data) {
 }
 
 export function deleteWaiver(waiverId) {
-  return (dispatch) => {
-    if (waiverId)
-      return axios.delete(`/Waivers/${waiverId}`).then(({ data }) => {
-        console.log(data);
+  return (dispatch, getState) => {
+    let {
+      waiver: { waivers = [] },
+    } = getState();
 
-        // dispatch({
-        //   type: SET_WAIVER,
-        //   data,
-        // });
-        return data;
+    if (waiverId)
+      return axios.delete(`/Waivers/${waiverId}`).then(() => {
+        dispatch({
+          type: SET_WAIVER,
+          data: {
+            waivers: waivers.filter((item) => item.waiverId != waiverId),
+          },
+        });
       });
   };
 }

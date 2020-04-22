@@ -2,25 +2,22 @@ import React, { useState } from "react";
 import SignaturePad from "react-signature-canvas";
 import { Button } from "@material-ui/core";
 
-const SignatureCreator = () => {
+const SignatureCreator = ({ sign }) => {
   const [trimmedDataURL, setTrimmedDateURL] = useState("");
 
   let signPad = {};
 
   const clear = () => {
     signPad.clear();
-  };
-
-  const trim = () => {
-    console.log(signPad.toData());
-    setTrimmedDateURL(signPad.getTrimmedCanvas().toDataURL("image/png"));
+    sign(null);
   };
 
   return (
-    <div className="w-200 h-200">
+    <div className="relative">
       <div>
         <SignaturePad
-          canvasProps={{ className: "bg-white" }}
+          canvasProps={{ width: 300, height: 180, className: "bg-white" }}
+          onEnd={() => sign(signPad.toData())}
           ref={(ref) => (signPad = ref)}
         />
       </div>
@@ -33,9 +30,6 @@ const SignatureCreator = () => {
           onClick={clear}
         >
           Clear
-        </Button>
-        <Button variant="contained" color="primary" size="small" onClick={trim}>
-          Trim
         </Button>
       </div>
     </div>
