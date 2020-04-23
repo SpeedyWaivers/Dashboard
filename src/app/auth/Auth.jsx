@@ -12,7 +12,7 @@ import jwtAuthService from "app/services/jwtAuthService";
 const checkJwtAuth = async (setUserData, pathname) => {
   let user = jwtAuthService.loginWithToken();
   if (user) setUserData(user);
-  else if (pathname !== "/") {
+  else if (pathname !== "/" && !pathname.match("/session")) {
     history.push({
       pathname: "/session/signin",
     });
