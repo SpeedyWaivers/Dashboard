@@ -46,8 +46,12 @@ const Waivers = () => {
                 <TableCell className="px-0">Last Name</TableCell>
                 <TableCell className="px-0">Date of Birth</TableCell>
                 <TableCell className="px-0">Email</TableCell>
-                <TableCell className="px-0">Mobile Number</TableCell>
-                <TableCell className="px-0">Waiver</TableCell>
+                <TableCell className="px-0" align="center">
+                  Mobile Number
+                </TableCell>
+                <TableCell className="px-0" align="center">
+                  Waiver
+                </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -61,16 +65,14 @@ const Waivers = () => {
                     <TableCell className="px-0 capitalize" align="left">
                       {user.lastName}
                     </TableCell>
-                    <TableCell className="px-0 capitalize" align="left">
+                    <TableCell className="px-0" align="left">
                       {format(new Date(user.birthDate), "dd MMM, yyyy")}
                     </TableCell>
-                    <TableCell className="px-0 capitalize">
-                      {user.emailAddress}
-                    </TableCell>
-                    <TableCell className="px-0 capitalize">
+                    <TableCell className="px-0">{user.emailAddress}</TableCell>
+                    <TableCell className="px-0" align="center">
                       {user.mobileNumber}
                     </TableCell>
-                    <TableCell className="px-0">
+                    <TableCell className="px-0" align="center">
                       <a
                         target="_blank"
                         href={`https://google.com/${user.publicCustomerId}`}
