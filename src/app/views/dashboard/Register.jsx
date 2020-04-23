@@ -15,6 +15,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useSnackbar } from "notistack";
 import { Formik } from "formik";
 import * as yup from "yup";
+import ReactHtmlParser from "react-html-parser";
 import { getRegistrationSettings } from "app/redux/actions/RegistrationActions";
 import SignatureCreator from "app/MatxLayout/SharedCompoents/SignatureCreator";
 import { addCustomer } from "app/redux/actions/WaiverActions";
@@ -30,7 +31,7 @@ const Register = () => {
   const dispatch = useDispatch();
   const { venue } = useSelector((state) => state.navigations);
   const { enqueueSnackbar: showSnackbar } = useSnackbar();
-  const { registrationFields = [], settings = [] } = useSelector(
+  const { registrationFields = [], settings = [], waiverText } = useSelector(
     (state) => state.setup
   );
 
@@ -74,7 +75,7 @@ const Register = () => {
     setActiveStep(0);
   };
 
-  const handleFormSubmit = (values, { setSubmitting }) => {
+  const handleFormSubmit = (values, { setSubmitting, resetForm }) => {
     if (activeStep === steps.length && sign) {
       dispatch(
         addCustomer({ ...values, venueId: venue.venueId, signature: sign })
@@ -82,6 +83,8 @@ const Register = () => {
         showSnackbar("Customer added successfully", {
           variant: "success",
         });
+        resetForm();
+        handleReset();
       });
     } else handleNext();
   };
@@ -123,6 +126,7 @@ const Register = () => {
                       <div className="flex items-center mb-4">
                         <div className="relative">
                           <SignatureCreator sign={setSign} />
+                          {ReactHtmlParser(waiverText || "")}
                         </div>
                       </div>
                       <Button

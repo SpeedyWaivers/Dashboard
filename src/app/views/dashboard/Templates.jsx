@@ -5,9 +5,9 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   getWaiver,
   saveSettings,
-  saveWaiver,
+  updateWaiver,
   deleteWaiver,
-  addCustomer,
+  addWaiver,
 } from "app/redux/actions/WaiverActions";
 import { useSnackbar } from "notistack";
 
@@ -30,7 +30,6 @@ const Templates = () => {
 
   useEffect(() => {
     setLiveOption(selectedWaiver.waiverId);
-    setWaiver({ ...selectedWaiver });
   }, [selectedWaiver]);
 
   useEffect(() => {
@@ -61,17 +60,19 @@ const Templates = () => {
 
   const handleWaiverSave = () => {
     if (waiver.waiverId)
-      dispatch(saveWaiver({ ...waiver, waiverText: contentText })).then(() => {
-        showSnackbar("Saved successfully", {
-          variant: "success",
-        });
-      });
+      dispatch(updateWaiver({ ...waiver, waiverText: contentText })).then(
+        () => {
+          showSnackbar("Saved successfully", {
+            variant: "success",
+          });
+        }
+      );
   };
 
   const handleWaiverCreate = () => {
     if (dialogWaiverName) {
       dispatch(
-        addCustomer({
+        addWaiver({
           venueId: venue.venueId,
           name: dialogWaiverName,
           waiverText: "",
@@ -89,6 +90,8 @@ const Templates = () => {
     if (waiver.waiverId)
       dispatch(deleteWaiver(waiver.waiverId)).then(() => {
         setOpen(false);
+        setWaiver({});
+        setContentText("");
         showSnackbar("Deleted successfully", {
           variant: "success",
         });
@@ -104,6 +107,7 @@ const Templates = () => {
         <h5 className="my-0 mr-8">Live Template</h5>
         <TextField
           className="my-4 mr-4 min-w-200"
+          label="Select Waiver"
           name="SelectedWaiver"
           variant="outlined"
           size="small"
@@ -111,6 +115,9 @@ const Templates = () => {
           value={liveOption || ""}
           onChange={({ target: { value } }) => setLiveOption(value)}
         >
+          {/* <MenuItem value="" disabled>
+            Select Option
+          </MenuItem> */}
           {waivers.map((item, ind) => (
             <MenuItem key={item.waiverId} value={item.waiverId}>
               {item.name}
@@ -130,7 +137,7 @@ const Templates = () => {
         <div className="flex items-center justify-between mb-6">
           <TextField
             className="min-w-200"
-            name="SelectedWaiver"
+            label="Select Waiver"
             variant="outlined"
             size="small"
             select

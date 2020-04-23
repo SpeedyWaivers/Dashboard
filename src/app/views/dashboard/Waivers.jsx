@@ -22,7 +22,7 @@ const Waivers = () => {
 
   useEffect(() => {
     dispatch(getCustomerList());
-  }, [dispatch, getCustomerList]);
+  }, [dispatch]);
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);

@@ -14,6 +14,17 @@ export function getCustomerList() {
   };
 }
 
+export function addCustomer(data) {
+  delete data.signature;
+
+  return (dispatch) => {
+    if (data)
+      return axios.post(`/Customers`, data).then(({ data }) => {
+        return data;
+      });
+  };
+}
+
 export function getWaiver(venueId) {
   return (dispatch) => {
     if (venueId)
@@ -26,28 +37,40 @@ export function getWaiver(venueId) {
   };
 }
 
-export function addCustomer(data) {
-  return (dispatch) => {
+export function addWaiver(data) {
+  return (dispatch, getState) => {
+    let {
+      waiver: { waivers = [] },
+    } = getState();
+
     if (data)
-      return axios.post(`/Customers`, data).then(({ data }) => {
-        return data;
+      return axios.post(`/Waivers`, data).then(({ data }) => {
+        dispatch({
+          type: SET_WAIVER,
+          data: {
+            waivers: [...waivers, data],
+          },
+        });
       });
   };
 }
 
-export function saveSettings(data) {
-  return (dispatch) => {
-    if (data) return axios.post(`/Settings`, data).then(() => {});
-  };
-}
+export function updateWaiver(data) {
+  return (dispatch, getState) => {
+    let {
+      waiver: { waivers = [] },
+    } = getState();
 
-export function saveWaiver(data) {
-  return (dispatch) => {
     if (data)
       return axios.post(`/Waivers/Update`, data).then(() => {
         dispatch({
           type: SET_WAIVER,
-          data: { selectedWaiver: data },
+          data: {
+            waivers: waivers.map((item) => {
+              if (item.waiverId === data.waiverId) return data;
+              return item;
+            }),
+          },
         });
       });
   };
@@ -68,5 +91,11 @@ export function deleteWaiver(waiverId) {
           },
         });
       });
+  };
+}
+
+export function saveSettings(data) {
+  return (dispatch) => {
+    if (data) return axios.post(`/Settings`, data).then(() => {});
   };
 }
