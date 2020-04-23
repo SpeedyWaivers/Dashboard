@@ -15,7 +15,8 @@ export function getCustomerList() {
 }
 
 export function addCustomer(data) {
-  delete data.signature;
+ //console.log(data.signature)
+  //delete data.signature;
 
   return (dispatch) => {
     if (data)

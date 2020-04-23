@@ -75,7 +75,7 @@ const Waivers = () => {
                     <TableCell className="px-0" align="center">
                       <a
                         target="_blank"
-                        href={`https://google.com/${user.publicCustomerId}`}
+                        href={`https://speedywaivers.com/waivers/${user.publicCustomerId}.pdf`}
                       >
                         <Button
                           size="small"

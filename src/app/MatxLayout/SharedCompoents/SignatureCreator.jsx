@@ -17,7 +17,7 @@ const SignatureCreator = ({ sign }) => {
       <div>
         <SignaturePad
           canvasProps={{ width: 300, height: 180, className: "bg-white" }}
-          onEnd={() => sign(signPad.toData())}
+          onEnd={() => sign(signPad.toDataURL())}
           ref={(ref) => (signPad = ref)}
         />
       </div>
