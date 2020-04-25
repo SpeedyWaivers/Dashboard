@@ -1,1 +1,1 @@
-export const API_ROOT = "https://www.speedywaivers.com/CoreAPI";
+export const API_ROOT = "https://coreAPI.speedywaivers.com";
