@@ -153,7 +153,7 @@ const Topbar1 = () => {
                 src="/assets/images/logo192.png"
                 alt="logo"
               />
-              <h4 className="m-0 text-inherit">EZWaiver</h4>
+              <h4 className="m-0 text-inherit">Speedy Waivers</h4>
             </Scroll>
             <Hidden smUp>
               <IconButton onClick={toggleSidenav}>

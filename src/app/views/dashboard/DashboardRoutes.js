@@ -17,6 +17,10 @@ const dashboardRoutes = [
     path: "/register",
     component: React.lazy(() => import("./Register")),
   },
+  {
+    path: "/payments",
+    component: React.lazy(() => import("./Payments")),
+  },
 ];
 
 export default dashboardRoutes;

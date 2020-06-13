@@ -83,7 +83,7 @@ const Footer1 = () => {
           </Grid>
           <Grid item md={2} xs={6}>
             <div className={clsx("m-0 font-semibold mb-1", classes.logo)}>
-              EZWaiver
+              Speedy Waivers
             </div>
             <div className="flex flex-wrap">
               <img
