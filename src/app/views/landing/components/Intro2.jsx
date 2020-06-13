@@ -13,11 +13,10 @@ const Intro2 = () => {
         <Grid container spacing={3}>
           <Grid item sm={6} xs={12}>
             <p className="mt-0 mb-2 text-primary">Who are we?</p>
-            <h1 className="mb-2 m-0 text-28">WELCOME TO Speedy Waivers</h1>
+            <h1 className="mb-2 m-0 text-28">Welcome to Speedy Waivers</h1>
             <div className="pb-2px w-48 bg-primary"></div>
             <p className="my-6">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
-              tincidunt quam quam.
+            We've been helping businesses streamline their waiver signing process.
             </p>
           </Grid>
           <Grid item sm={6} xs={12}>

@@ -26,13 +26,12 @@ const Intro1 = () => {
           <Grid item sm={6} xs={12}>
             <div className="max-w-400">
               <h1 className="font-normal mb-2 text-28 text-white">
-                We Are a Full Service Business & Creative Agency
+              Start collecting electronic waivers in minutes
               </h1>
               <div className="pb-2px w-120 bg-default"></div>
             </div>
             <p className="my-6">
-              We design beautiful experience, interfaces and brands that break
-              the barriers of time and burn into the memories of individuals.
+              Use our free kiosk app! All signed waivers and participant information are stored in our secure online database where you can easily search for and find a waiver in seconds.
             </p>
             <div className="flex">
               <Button
