@@ -1,3 +1,12 @@
+===============================================	
+
+If you want, in future project you can knock me throgh email or whatsapp or skype. This may reduce cost I think.	
+
+email: shahalihridoy@gmail.com	
+whatsapp: +8801975208815	
+skype: shahalihridoy	
+
+================================================
 SpeedyWaiver was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
