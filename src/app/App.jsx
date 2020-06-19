@@ -17,7 +17,7 @@ const App = () => {
   return (
     <AppContext.Provider value={{ routes }}>
       <Provider store={Store}>
-        <StripeProvider apiKey="pk_test_NZIkeEagt3NYSzGFtgcavTG7">
+        <StripeProvider apiKey="pk_live_nHbXlvvOUIu3VHrbdCAt6j3i">
           <MatxTheme>
             <SnackbarProvider>
               <Router history={history}>
