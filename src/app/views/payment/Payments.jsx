@@ -48,7 +48,7 @@ const Waivers = () => {
           <div className="flex items-center mt-4" key={card.creditCardId}>
             <img
               className="h-36 bg-white"
-              src={cardTypeList[card?.json]}
+              src={cardTypeList[card?.cardBrand]}
               alt="debit card"
             />
             <span className="mx-4">**** **** **** {card?.lastFour}</span>

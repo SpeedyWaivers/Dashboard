@@ -19,7 +19,7 @@ export const addCreditCard = (token, venueId) => {
       venueId,
       token: token?.id,
       lastFour: token?.card?.last4,
-      json: token?.card?.brand,
+      cardBrand: token?.card?.brand,
     }).then(({ data }) => {
       dispatch({
         type: SET_CREDIT_CARD_LIST,
