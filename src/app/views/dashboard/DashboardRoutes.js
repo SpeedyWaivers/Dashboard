@@ -19,7 +19,7 @@ const dashboardRoutes = [
   },
   {
     path: "/payments",
-    component: React.lazy(() => import("./Payments")),
+    component: React.lazy(() => import("../payment/Payments")),
   },
 ];
 
