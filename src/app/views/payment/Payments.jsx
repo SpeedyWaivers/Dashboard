@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Button, Dialog, CardActionArea } from "@material-ui/core";
+import { Button, Dialog } from "@material-ui/core";
 import { Elements } from "react-stripe-elements";
 import { Breadcrumb, SimpleCard } from "matx";
 import { useDispatch, useSelector } from "react-redux";
@@ -31,6 +31,8 @@ const Waivers = () => {
     snackbar("Deleted successfully", { variant: "success" });
   };
 
+  console.log(creditCardList);
+
   return (
     <div className="m-sm-30">
       <div className="mb-sm-30">
@@ -44,9 +46,12 @@ const Waivers = () => {
         )}
         {creditCardList.map((card, ind) => (
           <div className="flex items-center mt-4" key={card.creditCardId}>
-            <div className="flex-grow mr-4 max-w-200">
-              <img src="/assets/images/debit-card.png" alt="debit card" />
-            </div>
+            <img
+              className="h-36 bg-white"
+              src={cardTypeList[card?.json]}
+              alt="debit card"
+            />
+            <span className="mx-4">**** **** **** {card?.lastFour}</span>
             <Button
               variant="contained"
               className="bg-error"
@@ -73,4 +78,10 @@ const Waivers = () => {
   );
 };
 
+const cardTypeList = {
+  ["American Express"]: "/assets/images/payment-methods/amex.png",
+  ["MasterCard"]: "/assets/images/payment-methods/master-card.png",
+  ["Visa"]: "/assets/images/payment-methods/visa.png",
+  ["UnionPay"]: "/assets/images/payment-methods/western-union.png",
+};
 export default Waivers;

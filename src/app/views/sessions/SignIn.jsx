@@ -31,8 +31,8 @@ const styles = (theme) => ({
 
 class SignIn extends Component {
   state = {
-    username: "test",
-    password: "test",
+    username: "",
+    password: "",
     agreement: "",
   };
 

@@ -26,14 +26,18 @@ const PaymentForm = ({ handleClose, stripe }) => {
     setLoading(true);
 
     if (stripe) {
-      let { token } = await stripe.createToken({
+      let { source: token } = await stripe.createSource({
         type: "card",
         currency: "USD",
-        name: `${user?.firstName} ${user?.lastName}`,
       });
+
       if (token && venue?.venueId) {
-        await dispatch(addCreditCard(token.id, venue.venueId));
-        snackbar("Card added successfully", { variant: "success" });
+        try {
+          await dispatch(addCreditCard(token, venue.venueId));
+          snackbar("Card added successfully", { variant: "success" });
+        } catch (error) {
+          snackbar(error?.response?.title, { variant: "error" });
+        }
       }
       setLoading(false);
       handleClose();
