@@ -50,6 +50,9 @@ const Waivers = () => {
                   Mobile Number
                 </TableCell>
                 <TableCell className="px-0" align="center">
+                  Created Date
+                </TableCell>
+                <TableCell className="px-0" align="center">
                   Waiver
                 </TableCell>
               </TableRow>
@@ -66,11 +69,14 @@ const Waivers = () => {
                       {user.lastName}
                     </TableCell>
                     <TableCell className="px-0" align="left">
-                      {format(new Date(user.birthDate), "dd MMM, yyyy")}
+                      {format(new Date(user.birthDate), "MMMM dd yyyy")}
                     </TableCell>
                     <TableCell className="px-0">{user.emailAddress}</TableCell>
                     <TableCell className="px-0" align="center">
                       {user.mobileNumber}
+                    </TableCell>
+                    <TableCell className="px-0" align="center">
+                      {format(new Date(user.createdDate), "MMMM dd yyyy h:mm aa")}
                     </TableCell>
                     <TableCell className="px-0" align="center">
                       <a
