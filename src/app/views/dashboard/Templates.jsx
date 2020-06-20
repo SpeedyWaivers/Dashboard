@@ -100,11 +100,13 @@ const Templates = () => {
 
   return (
     <div className="m-sm-30">
+      
       <div className="mb-sm-30">
         <Breadcrumb routeSegments={[{ name: "Template" }]} />
       </div>
       <Card className="px-6 py-4 flex flex-wrap items-center mb-6">
-        <h5 className="my-0 mr-8">Live Template</h5>
+        <h5 className="my-0 mr-8">Template Used in App</h5>
+        
         <TextField
           className="my-4 mr-4 min-w-200"
           label="Select Waiver"
@@ -131,10 +133,11 @@ const Templates = () => {
         >
           Save
         </Button>
+      
       </Card>
 
       <Card className="p-6">
-      <h5 className="my-3 mr-8"> Templates</h5>
+      <h5 className="my-3 mr-8">Add / Edit  Templates</h5>
         <div className="flex items-center justify-between mb-6">
           <TextField
             className="min-w-200"
