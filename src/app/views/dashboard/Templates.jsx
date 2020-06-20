@@ -134,6 +134,7 @@ const Templates = () => {
       </Card>
 
       <Card className="p-6">
+      <h5 className="my-3 mr-8"> Templates</h5>
         <div className="flex items-center justify-between mb-6">
           <TextField
             className="min-w-200"
@@ -163,6 +164,7 @@ const Templates = () => {
         </div>
 
         <div className="mb-6">
+        <h6 className="my-3 mr-8">If your waiver has multiple pages, then type ###PAGE### for each page break.</h6>
           <RichTextEditor
             content={contentText || ""}
             handleContentChange={handleContentChange}

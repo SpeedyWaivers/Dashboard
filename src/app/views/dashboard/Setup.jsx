@@ -60,6 +60,7 @@ const Setup = () => {
         <Breadcrumb routeSegments={[{ name: "Setup" }]} />
       </div>
       <SimpleCard title="Setup">
+      <h6 className="my-3 mr-8">These fields will determine what fields show up on the speedy waivers app.</h6>
         <div className="max-w-400">
           <table className={classes.table}>
             <thead>

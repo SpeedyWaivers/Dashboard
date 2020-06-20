@@ -7,7 +7,7 @@ const Brand = ({ children }) => {
       <div className="flex items-center brand">
         {/* <img src="/assets/images/logo.png" alt="company-logo" /> */}
         <MatxLogo className="" />
-        <span className="brand__text ml-2">EZWaiver</span>
+        <span className="brand__text ml-2">Speedy Waivers</span>
       </div>
       {children}
     </div>

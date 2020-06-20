@@ -12,7 +12,7 @@ export function getNavigationByUser() {
           let navigations = data[0].userPages.map((item) => ({
             name: item.name,
             path: item.route.toLowerCase(),
-            icon: "dashboard",
+            icon: item.icon,
           }));
 
           dispatch({
